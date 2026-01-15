@@ -1,0 +1,46 @@
+<% const body = `
+  <h1>Chatbot Sederhana</h1>
+
+  <div class="card">
+    <div id="chat" class="chatbox"></div>
+
+    <div class="row">
+      <input id="msg" placeholder="Ketik pesan..." />
+      <button id="send">Kirim</button>
+    </div>
+  </div>
+
+  <script>
+    const chat = document.getElementById("chat");
+    const msg = document.getElementById("msg");
+    const send = document.getElementById("send");
+
+    function add(who, text){
+      const p = document.createElement("div");
+      p.textContent = who + ": " + text;
+      chat.appendChild(p);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    async function sendMsg(){
+      const text = msg.value.trim();
+      if(!text) return;
+      add("Kamu", text);
+      msg.value = "";
+
+      const r = await fetch("/api/chat", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ message: text })
+      });
+
+      const data = await r.json();
+      if(!r.ok) return add("Bot", "Error: " + JSON.stringify(data));
+      add("Bot", data.reply);
+    }
+
+    send.onclick = sendMsg;
+    msg.addEventListener("keydown", (e)=>{ if(e.key==="Enter") sendMsg(); });
+  </script>
+` %>
+<%- include("layout", { title: "Chatbot", body }) %>

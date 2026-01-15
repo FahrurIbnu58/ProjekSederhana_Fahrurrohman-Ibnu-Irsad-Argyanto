@@ -1,0 +1,7 @@
+body { font-family: system-ui, Arial; background:#fafafa; margin:0; }
+.container { max-width: 800px; margin: 0 auto; padding: 18px; }
+.card { background:#fff; border:1px solid #eee; border-radius:12px; padding:12px; }
+.chatbox { min-height:260px; border:1px solid #eee; border-radius:10px; padding:10px; overflow:auto; white-space:pre-wrap; }
+.row { display:flex; gap:8px; margin-top:10px; }
+input { flex:1; padding:10px; border:1px solid #ddd; border-radius:10px; }
+button { padding:10px 14px; border:0; border-radius:10px; background:#111; color:#fff; cursor:pointer; }
